@@ -1,37 +1,44 @@
 <template>
-  <div id="container">
-    <strong>{{ name }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  <ion-grid> 
-    <ion-row>
-      <ion-col size-xs="12" >
-        <div class="test" >test</div>
-        <ion-button color="primary">test</ion-button>
-      </ion-col>
-      <ion-col size-xs="12">
-        <div>2 of 4</div>
-      </ion-col>
-      <ion-col size-xs="12">
-        <div>3 of 4</div>
-      </ion-col>
-      <ion-col size-xs="12">
-        <div>4 of 4</div>
-      </ion-col>
-    </ion-row>
-</ion-grid>
-  </div>
+  <authenticator>
+    <template v-slot="{ signOut }">
+      <div id="container">
+        <strong>{{ name }}</strong>
+        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI
+            Components</a></p>
+        <ion-grid>
+          <ion-row>
+            <ion-col size-xs="12">
+              <div class="test">test</div>
+              <ion-button color="primary" @click="signOut">logout</ion-button>
+            </ion-col>
+            <ion-col size-xs="12">
+              <div>2 of 4</div>
+            </ion-col>
+            <ion-col size-xs="12">
+              <div>3 of 4</div>
+            </ion-col>
+            <ion-col size-xs="12">
+              <div>4 of 4</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </template>
+  </authenticator>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { IonButton, IonGrid, IonRow, IonCol } from '@ionic/vue';
+import { Authenticator } from "@aws-amplify/ui-vue";
+import "@aws-amplify/ui-vue/styles.css";
 
 export default defineComponent({
   name: 'ExploreContainer',
   props: {
     name: String
   },
-  components: { IonButton, IonGrid, IonRow, IonCol }
+  components: { IonButton, IonGrid, IonRow, IonCol, Authenticator }
 });
 </script>
 

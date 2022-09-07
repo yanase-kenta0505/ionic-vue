@@ -1,6 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
+import {Amplify} from 'aws-amplify';
+import aws_exports from './aws-exports'
+import AmplifyVue from "@aws-amplify/ui-vue";
+
+Amplify.configure( aws_exports)
 
 import { IonicVue } from '@ionic/vue';
 
@@ -25,6 +30,7 @@ import './theme/variables.css';
 
 const app = createApp(App)
   .use(IonicVue)
+  .use(AmplifyVue)
   .use(router);
   
 router.isReady().then(() => {
