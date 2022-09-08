@@ -12,7 +12,6 @@
     "build:android": "ionic cap copy & ionic cap open android"
   },
   "dependencies": {
-    "@aws-amplify/ui-components": "^1.9.6",
     "@aws-amplify/ui-vue": "^2.4.20",
     "@capacitor/android": "4.1.0",
     "@capacitor/app": "4.0.1",

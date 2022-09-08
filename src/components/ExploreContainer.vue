@@ -7,11 +7,13 @@
             Components</a></p>
         <ion-grid>
           <ion-row>
-            <ion-col size-xs="12">
+            <ion-col size-xs="12" size-sm="6">
               <div class="test">test</div>
+              <ion-input placeholder="Enter Input" v-model="taskname"></ion-input>
+              <ion-button color="primary" @click="addTask">add</ion-button>
               <ion-button color="primary" @click="signOut">logout</ion-button>
             </ion-col>
-            <ion-col size-xs="12">
+            <ion-col size-xs="12" size-sm="6">
               <div>2 of 4</div>
             </ion-col>
             <ion-col size-xs="12">
@@ -28,17 +30,38 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { IonButton, IonGrid, IonRow, IonCol } from '@ionic/vue';
+import { defineComponent, ref } from 'vue';
+import { IonButton, IonGrid, IonRow, IonCol, IonInput } from '@ionic/vue';
 import { Authenticator } from "@aws-amplify/ui-vue";
 import "@aws-amplify/ui-vue/styles.css";
+import { API } from 'aws-amplify'
+import { createTodo } from '../graphql/mutations'
 
 export default defineComponent({
   name: 'ExploreContainer',
   props: {
     name: String
   },
-  components: { IonButton, IonGrid, IonRow, IonCol, Authenticator }
+  components: { IonButton, IonGrid, IonRow, IonCol, Authenticator, IonInput },
+
+  setup() {
+    const taskname = ref('')
+
+    const addTask = async () => {
+      if (!taskname.value) return
+      console.log(taskname.value)
+      await API.graphql({
+        query: createTodo,
+        variables: { input: { "name": taskname.value} }
+      })
+      taskname.value = ''
+    }
+
+    return {
+      taskname,
+      addTask
+    }
+  }
 });
 </script>
 
@@ -70,7 +93,7 @@ export default defineComponent({
 }
 
 .test {
-  background-color: red;
-  height: 100px;
+  background-color: rgb(225, 222, 222);
+  height: 40px;
 }
 </style>
